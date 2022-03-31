@@ -5,6 +5,8 @@ import { SignIn } from './pages/SignIn';
 import { User } from './pages/User';
 import { createGlobalStyle } from 'styled-components';
 import { Footer } from './components/Footer';
+import { Provider } from 'react-redux';
+import { store } from './utils/store';
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -31,15 +33,17 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <BrowserRouter>
-      <GlobalStyle />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/user" element={<User />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/user" element={<User />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </Provider>
   );
 }
 
