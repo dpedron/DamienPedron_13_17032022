@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import EditUser from './EditUser';
-import { store } from '../utils/store';
+import { useSelector } from 'react-redux';
 
 const StyledWrapper = styled.div`
   color: #fff;
@@ -22,30 +22,28 @@ const StyledButton = styled.button`
  */
 
 export function HelloUser() {
-  const [edit, setEdit] = useState(false);
-  const state = store.getState();
+  const [isEditing, setIsEditing] = useState(false);
+  const firstName = useSelector((state) => state.user.firstName);
+  const lastName = useSelector((state) => state.user.lastName);
+  const edit = () => {
+    setIsEditing(!isEditing);
+  };
 
   return (
     <StyledWrapper>
       <h1>
         Welcome back
-        {!edit && (
+        {!isEditing && (
           <>
             <br />
-            {state.user.firstName} {state.user.lastName}
+            {firstName} {lastName}
           </>
         )}
       </h1>
-      {edit ? (
-        <EditUser />
+      {isEditing ? (
+        <EditUser edit={edit} />
       ) : (
-        <StyledButton
-          onClick={() => {
-            setEdit(!edit);
-          }}
-        >
-          Edit Name
-        </StyledButton>
+        <StyledButton onClick={edit}>Edit Name</StyledButton>
       )}
     </StyledWrapper>
   );

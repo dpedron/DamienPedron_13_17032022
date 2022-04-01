@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import editUserName from '../utils/editUserName';
+import { useSelector } from 'react-redux';
 
 const StyledForm = styled.form`
   margin: auto;
@@ -19,13 +21,44 @@ const StyledButton = styled.button`
   color: #fff;
 `;
 
-export default function EditUser() {
+export default function EditUser({ edit }) {
+  const firstName = useSelector((state) => state.user.firstName);
+  const lastName = useSelector((state) => state.user.lastName);
+  const handleClick = (e) => {
+    const firstNameLength = document.getElementById('first-name-modification')
+      .value.length;
+    const lastNameLength = document.getElementById('last-name-modification')
+      .value.length;
+    e.preventDefault();
+    if (firstNameLength < 3 || lastNameLength < 3) {
+      return;
+    }
+    edit();
+  };
   return (
     <StyledForm>
-      <StyledInput type="text" id="first-name"></StyledInput>
-      <StyledInput type="text" id="last-name"></StyledInput>
-      <StyledButton>Save</StyledButton>
-      <StyledButton>Cancel</StyledButton>
+      <StyledInput
+        type="text"
+        id="first-name-modification"
+        placeholder={firstName}
+      />
+      <StyledInput
+        type="text"
+        id="last-name-modification"
+        placeholder={lastName}
+      />
+      <StyledButton
+        id="save-modification"
+        onClick={(e) => {
+          editUserName(e);
+          handleClick(e);
+        }}
+      >
+        Save
+      </StyledButton>
+      <StyledButton id="cancel-modification" onClick={(e) => handleClick(e)}>
+        Cancel
+      </StyledButton>
     </StyledForm>
   );
 }
