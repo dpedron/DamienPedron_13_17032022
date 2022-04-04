@@ -1,11 +1,10 @@
-import { store } from './store';
-import { fetchData } from './fetchData';
-import { userAction, authorizationAction } from './store';
+import { store } from '../utils/store';
+import { fetchData } from '../utils/fetchData';
+import { userAction, authorizationAction } from '../utils/actions';
 
 export default async function getData() {
   const state = store.getState();
   const getToken = state.token;
-
   const data = await fetchData(
     'http://localhost:3001/api/v1/user/profile',
     'POST',
@@ -20,6 +19,7 @@ export default async function getData() {
       userAction({
         firstName: data.body.firstName,
         lastName: data.body.lastName,
+        logAt: Date.now(),
       })
     );
     store.dispatch(authorizationAction(true));

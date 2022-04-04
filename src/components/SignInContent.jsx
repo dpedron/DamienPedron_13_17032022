@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import userToken from '../utils/userToken';
+import userToken from '../features/userToken';
 
 const StyledSection = styled.section`
   box-sizing: border-box;

@@ -3,6 +3,7 @@ import { LinkTo } from '../components/LinkTo';
 import styled from 'styled-components';
 import { Account } from '../components/Account';
 import { useSelector } from 'react-redux';
+import tokenValidity from '../features/tokenValidity';
 
 const StyledMain = styled.main`
   flex: 1;
@@ -13,6 +14,8 @@ const StyledMain = styled.main`
  * @description User page
  * @returns {JSX}
  */
+
+tokenValidity();
 
 export function User() {
   const getAuthorization = useSelector((state) => state.authorization);

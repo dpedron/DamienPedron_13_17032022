@@ -1,6 +1,6 @@
-import { fetchData } from './fetchData';
-import { store } from './store';
-import { userAction } from './store';
+import { fetchData } from '../utils/fetchData';
+import { store } from '../utils/store';
+import { userAction } from '../utils/actions';
 
 export default async function editName(e) {
   e.preventDefault();

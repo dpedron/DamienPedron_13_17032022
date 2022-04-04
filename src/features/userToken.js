@@ -1,6 +1,6 @@
-import { fetchData } from './fetchData';
-import { store } from './store';
-import { tokenAction } from './store';
+import { fetchData } from '../utils/fetchData';
+import { store } from '../utils/store';
+import { tokenAction } from '../utils/actions';
 import userData from './userData';
 
 export default async function userToken() {

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import editUserName from '../utils/editUserName';
+import editUserName from '../features/editUserName';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const StyledForm = styled.form`
   margin: auto;
@@ -21,16 +22,23 @@ const StyledButton = styled.button`
   color: #fff;
 `;
 
+/**
+ * @description The user can edit first and last name
+ * @param {boolean} edit The user is editing his name ?
+ * @returns {JSX}
+ */
+
 export default function EditUser({ edit }) {
   const firstName = useSelector((state) => state.user.firstName);
   const lastName = useSelector((state) => state.user.lastName);
   const handleClick = (e) => {
+    const targetCancel = e.currentTarget.id === 'cancel-modification';
     const firstNameLength = document.getElementById('first-name-modification')
       .value.length;
     const lastNameLength = document.getElementById('last-name-modification')
       .value.length;
     e.preventDefault();
-    if (firstNameLength < 3 || lastNameLength < 3) {
+    if (!targetCancel && (firstNameLength < 3 || lastNameLength < 3)) {
       return;
     }
     edit();
@@ -62,3 +70,7 @@ export default function EditUser({ edit }) {
     </StyledForm>
   );
 }
+
+EditUser.propTypes = {
+  edit: PropTypes.func,
+};
