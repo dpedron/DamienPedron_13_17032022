@@ -1,6 +1,6 @@
-import { fetchData } from '../utils/fetchData';
 import { store } from '../utils/store';
 import { userAction } from '../utils/actions';
+import { apiBaseUrl } from '../utils/apiBaseUrl';
 
 export default async function editName(e) {
   e.preventDefault();
@@ -13,24 +13,30 @@ export default async function editName(e) {
     return;
   }
 
-  const data = await fetchData(
-    'http://localhost:3001/api/v1/user/profile',
-    'PUT',
-    JSON.stringify({
+  fetch(`${apiBaseUrl}user/profile`, {
+    method: 'PUT',
+    body: JSON.stringify({
       firstName: firstName,
       lastName: lastName,
     }),
-    {
+    headers: {
       authorization: `Bearer${token}`,
       'Content-type': 'application/json; charset=UTF-8',
-    }
-  );
-  if (data.status === 200) {
-    store.dispatch(
-      userAction({
-        firstName: data.body.firstName,
-        lastName: data.body.lastName,
-      })
-    );
-  }
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.log('error');
+      }
+    })
+    .then((data) => {
+      store.dispatch(
+        userAction({
+          firstName: data.body.firstName,
+          lastName: data.body.lastName,
+        })
+      );
+    });
 }

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { FeatureItem } from './FeatureItem';
-import chatIcon from '../assets/img/icon-chat.png';
-import moneyIcon from '../assets/img/icon-money.png';
-import securityIcon from '../assets/img/icon-security.png';
+import chatIcon from '../../assets/img/icon-chat.png';
+import moneyIcon from '../../assets/img/icon-money.png';
+import securityIcon from '../../assets/img/icon-security.png';
 
 const StyledFeatures = styled.section`
   display: flex;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import hero from '../assets/img/bank-tree.jpeg';
+import hero from '../../assets/img/bank-tree.jpeg';
 
 const StyledHero = styled.div`
   background-image: url(${hero});

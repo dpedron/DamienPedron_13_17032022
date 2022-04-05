@@ -1,7 +1,5 @@
-import { Header } from '../components/Header';
-import { LinkTo } from '../components/LinkTo';
 import styled from 'styled-components';
-import { SignInContent } from '../components/SignInContent';
+import { SignInContent } from '../components/signIn/SignInContent';
 
 const StyledMain = styled.main`
   flex: 1;
@@ -16,15 +14,6 @@ const StyledMain = styled.main`
 export function SignIn() {
   return (
     <>
-      <Header
-        children={
-          <LinkTo
-            icon={<i className="fa fa-user-circle"></i>}
-            text="Sign In"
-            linkTo="/sign-in"
-          />
-        }
-      />
       <StyledMain>
         <SignInContent />
       </StyledMain>

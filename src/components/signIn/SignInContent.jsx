@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import userToken from '../features/userToken';
+import authentication from '../../features/authentication';
 
 const StyledSection = styled.section`
   box-sizing: border-box;
@@ -67,13 +67,19 @@ export function SignInContent() {
           <input type="password" id="password" />
         </StyledInputWrapper>
         <StyledInputRemember>
-          <input type="checkbox" id="remember-me" />
+          <input
+            type="checkbox"
+            id="remember-me"
+            onClick={() =>
+              console.log(document.getElementById('remember-me').checked)
+            }
+          />
           <label htmlFor="remember-me">Remember me</label>
         </StyledInputRemember>
         <StyledButton
           to="/user"
           className="sign-in-button"
-          onClick={() => userToken()}
+          onClick={() => authentication()}
         >
           Sign In
         </StyledButton>

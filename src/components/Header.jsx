@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from '../assets/img/argentBankLogo.png';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { selectFirstName, selectGetAuthorization } from '../utils/selectors';
+import logOut from '../features/logOut';
 
 const StyledNav = styled.nav`
   display: flex;
@@ -18,24 +20,46 @@ const StyledLogo = styled.img`
   width: 200px;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  margin-right: 0.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 /**
  * @description Header, navigation
- * @param {object} children - Links
  * @returns {JSX}
  */
 
-export function Header({ children }) {
+export function Header() {
+  const getAuthorization = useSelector(selectGetAuthorization);
+  const firstName = useSelector(selectFirstName);
   return (
     <StyledNav>
       <StyledLogoLink to="/">
         <StyledLogo src={logo} alt="Argent Bank Logo" />
         <h1 className="sr-only">Argent Bank</h1>
       </StyledLogoLink>
-      <div>{children}</div>
+      {getAuthorization ? (
+        <div>
+          <StyledLink to="/user">
+            <i className="fa fa-user-circle"></i> {firstName}
+          </StyledLink>
+          <StyledLink to="/" onClick={() => logOut()}>
+            <i className="fa fa-sign-out"></i>
+            Sign Out
+          </StyledLink>
+        </div>
+      ) : (
+        <StyledLink to="/sign-in">
+          <i className="fa fa-user-circle"></i>
+          Sign In
+        </StyledLink>
+      )}
     </StyledNav>
   );
 }
-
-Header.propTypes = {
-  children: PropTypes.object,
-};

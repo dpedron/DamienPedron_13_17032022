@@ -1,9 +1,8 @@
-import { Header } from '../components/Header';
-import { LinkTo } from '../components/LinkTo';
 import styled from 'styled-components';
-import { Account } from '../components/Account';
+import { Account } from '../components/user/Account';
 import { useSelector } from 'react-redux';
 import tokenValidity from '../features/tokenValidity';
+import { selectGetAuthorization } from '../utils/selectors';
 
 const StyledMain = styled.main`
   flex: 1;
@@ -18,33 +17,14 @@ const StyledMain = styled.main`
 tokenValidity();
 
 export function User() {
-  const getAuthorization = useSelector((state) => state.authorization);
-  const firstName = useSelector((state) => state.user.firstName);
+  const getAuthorization = useSelector(selectGetAuthorization);
   if (!getAuthorization) {
     return <div>Vous devez vous authentifier</div>;
   } else {
     return (
-      <>
-        <Header
-          children={
-            <>
-              <LinkTo
-                icon={<i className="fa fa-user-circle"></i>}
-                text={firstName}
-                linkTo="/sign-in"
-              />
-              <LinkTo
-                icon={<i className="fa fa-sign-out"></i>}
-                text="Sign Out"
-                linkTo="/"
-              />
-            </>
-          }
-        />
-        <StyledMain>
-          <Account />
-        </StyledMain>
-      </>
+      <StyledMain>
+        <Account />
+      </StyledMain>
     );
   }
 }

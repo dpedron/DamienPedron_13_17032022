@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { SignIn } from './pages/SignIn';
 import { User } from './pages/User';
 import { createGlobalStyle } from 'styled-components';
+import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Provider } from 'react-redux';
 import { store } from './utils/store';
@@ -36,6 +37,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <GlobalStyle />
+        <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
