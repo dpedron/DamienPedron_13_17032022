@@ -2,6 +2,7 @@ import { store } from '../utils/store';
 import { tokenAction } from '../utils/actions';
 import { userAction, authorizationAction } from '../utils/actions';
 import { apiBaseUrl } from '../utils/apiBaseUrl';
+import { sessionValidity } from './sessionExpiration';
 
 export default async function authentication() {
   const email = document.getElementById('username').value;
@@ -30,7 +31,7 @@ export default async function authentication() {
     // When the user is authenticated successfully, get his data from database
     .then(() => {
       const state = store.getState();
-      const getToken = state.token;
+      const getToken = state.auth.token;
       fetch(`${apiBaseUrl}user/profile`, {
         method: 'POST',
         headers: {
@@ -55,10 +56,10 @@ export default async function authentication() {
               id: data.body.id,
               lastName: data.body.lastName,
               updatedAt: data.body.updatedAt,
-              logAt: Date.now(),
             })
           );
           store.dispatch(authorizationAction(true));
+          sessionValidity();
         });
     });
 }

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Account } from '../components/user/Account';
 import { useSelector } from 'react-redux';
-import tokenValidity from '../features/tokenValidity';
 import { selectGetAuthorization } from '../utils/selectors';
 
 const StyledMain = styled.main`
@@ -13,8 +12,6 @@ const StyledMain = styled.main`
  * @description User page
  * @returns {JSX}
  */
-
-tokenValidity();
 
 export function User() {
   const getAuthorization = useSelector(selectGetAuthorization);

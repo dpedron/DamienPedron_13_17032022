@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import authentication from '../../features/authentication';
+import { rememberAction } from '../../utils/actions';
+import { store } from '../../utils/store';
 
 const StyledSection = styled.section`
   box-sizing: border-box;
@@ -53,6 +56,14 @@ const StyledButton = styled(Link)`
  */
 
 export function SignInContent() {
+  const state = store.getState();
+  const remember = state.auth.remember;
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    remember && navigate('/user');
+  });
+
   return (
     <StyledSection>
       <StyledIcon className="fa fa-user-circle"></StyledIcon>
@@ -70,9 +81,7 @@ export function SignInContent() {
           <input
             type="checkbox"
             id="remember-me"
-            onClick={() =>
-              console.log(document.getElementById('remember-me').checked)
-            }
+            onClick={() => store.dispatch(rememberAction())}
           />
           <label htmlFor="remember-me">Remember me</label>
         </StyledInputRemember>

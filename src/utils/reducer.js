@@ -1,20 +1,32 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { tokenAction, authorizationAction, userAction } from './actions';
 
-const tokenReducer = createReducer('', (builder) => {
-  return builder.addCase(tokenAction, (state, action) => {
-    return action.payload;
+import {
+  tokenAction,
+  authorizationAction,
+  userAction,
+  rememberAction,
+} from './actions';
+
+const authInitialState = {
+  token: '',
+  authorization: false,
+  remember: false,
+};
+
+const auth = createReducer(authInitialState, (builder) => {
+  builder.addCase(tokenAction, (state, action) => {
+    return { ...state, token: action.payload };
   });
-});
-
-const authorizationReducer = createReducer(false, (builder) => {
   builder.addCase(authorizationAction, (state, action) => {
-    return action.payload;
+    return { ...state, authorization: action.payload };
+  });
+  builder.addCase(rememberAction, (state) => {
+    return { ...state, remember: !state.remember };
   });
 });
 
-const userInitialState = {
+export const userInitialState = {
   createdAt: '',
   email: '',
   firstName: '',
@@ -23,14 +35,13 @@ const userInitialState = {
   updatedAt: '',
 };
 
-const userReducer = createReducer(userInitialState, (builder) =>
+const user = createReducer(userInitialState, (builder) =>
   builder.addCase(userAction, (state, action) => {
     return action.payload;
   })
 );
 
 export const reducer = combineReducers({
-  token: tokenReducer,
-  authorization: authorizationReducer,
-  user: userReducer,
+  auth,
+  user,
 });

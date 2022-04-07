@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Provider } from 'react-redux';
 import { store } from './utils/store';
+import SessionExpiration from './components/SessionExpiration';
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/user" element={<User />} />
         </Routes>
         <Footer />
+        <SessionExpiration />
       </BrowserRouter>
     </Provider>
   );
