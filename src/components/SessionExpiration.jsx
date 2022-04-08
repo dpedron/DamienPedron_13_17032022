@@ -36,12 +36,17 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
+/**
+ * @description Pop-up for session expiration
+ * @returns {JSX}
+ */
+
 export default function SessionExpiration() {
   return (
     <StyledBackGround id="alert">
       <StyledContainer>
         <h1>
-          Your session expires in 5 minutes :<br />
+          Your session expires in 2 minutes :<br />
         </h1>
         <StyledButtonContainer>
           <StyledButton onClick={() => acceptDisconnection()}>Ok</StyledButton>

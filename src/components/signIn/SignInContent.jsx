@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import authentication from '../../features/authentication';
 import { rememberAction } from '../../utils/actions';
 import { store } from '../../utils/store';
+import { useSelector } from 'react-redux';
+import { selectRemember } from '../../utils/selectors';
+import { tokenAction, authorizationAction } from '../../utils/actions';
+import { apiBaseUrl } from '../../utils/apiBaseUrl';
+import { sessionExpiration } from '../../features/sessionExpiration';
+import { useState } from 'react';
 
 const StyledSection = styled.section`
   box-sizing: border-box;
@@ -32,6 +36,11 @@ const StyledInputWrapper = styled.div`
   }
 `;
 
+const StyledError = styled.p`
+  color: red;
+  font-weight: bold;
+`;
+
 const StyledInputRemember = styled.div`
   display: flex;
   label {
@@ -56,13 +65,36 @@ const StyledButton = styled(Link)`
  */
 
 export function SignInContent() {
-  const state = store.getState();
-  const remember = state.auth.remember;
-  let navigate = useNavigate();
+  const remember = useSelector(selectRemember);
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    remember && navigate('/user');
-  });
+  async function authentication(e) {
+    e.preventDefault();
+    const email = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    try {
+      const response = await fetch(`${apiBaseUrl}user/login`, {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      const data = await response.json();
+      const token = data.body.token;
+      store.dispatch(tokenAction(token));
+      store.dispatch(authorizationAction(true));
+    } catch (err) {
+      console.log(err);
+      return setError(true);
+    }
+    sessionExpiration();
+    navigate('/user');
+  }
 
   return (
     <StyledSection>
@@ -77,10 +109,12 @@ export function SignInContent() {
           <label htmlFor="password">Password</label>
           <input type="password" id="password" />
         </StyledInputWrapper>
+        {error && <StyledError>Unknown user</StyledError>}
         <StyledInputRemember>
           <input
             type="checkbox"
             id="remember-me"
+            defaultChecked={remember}
             onClick={() => store.dispatch(rememberAction())}
           />
           <label htmlFor="remember-me">Remember me</label>
@@ -88,7 +122,9 @@ export function SignInContent() {
         <StyledButton
           to="/user"
           className="sign-in-button"
-          onClick={() => authentication()}
+          onClick={(e) => {
+            authentication(e);
+          }}
         >
           Sign In
         </StyledButton>

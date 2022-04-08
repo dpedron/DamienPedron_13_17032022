@@ -23,7 +23,6 @@ export default async function getUserData() {
         userAction({
           firstName: data.body.firstName,
           lastName: data.body.lastName,
-          logAt: Date.now(),
         })
       );
       store.dispatch(authorizationAction(true));
