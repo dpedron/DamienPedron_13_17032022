@@ -6,6 +6,7 @@ import { User } from './pages/User';
 import { createGlobalStyle } from 'styled-components';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import Error from './pages/Error';
 import { Provider } from 'react-redux';
 import { store } from './utils/store';
 import SessionExpiration from './components/SessionExpiration';
@@ -43,9 +44,10 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/user" element={<User />} />
+          <Route path="*" element={<Error />} />
         </Routes>
-        <Footer />
         <SessionExpiration />
+        <Footer />
       </BrowserRouter>
     </Provider>
   );

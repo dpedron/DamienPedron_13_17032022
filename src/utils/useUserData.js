@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { apiBaseUrl } from './apiBaseUrl';
 import { store } from './store';
-import { authorizationAction, userAction } from './actions';
+import { userAction } from './actions';
 import { sessionExpiration } from '../features/sessionExpiration';
 
 export function useUserData() {
@@ -32,7 +32,6 @@ export function useUserData() {
             updatedAt: data.body.updatedAt,
           })
         );
-        store.dispatch(authorizationAction(true));
         sessionExpiration();
       } catch (err) {
         console.log(err);
