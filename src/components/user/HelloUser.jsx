@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import EditUser from './EditUser';
 import { useSelector } from 'react-redux';
-import { selectFirstName, selectLastName } from '../../utils/selectors';
+import { selectFirstName, selectLastName } from '../../utils/redux/selectors';
 
 const StyledWrapper = styled.div`
   color: #fff;
@@ -22,10 +22,12 @@ const StyledButton = styled.button`
  * @returns {JSX}
  */
 
-export function HelloUser() {
+export default function HelloUser() {
   const firstName = useSelector(selectFirstName);
   const lastName = useSelector(selectLastName);
   const [isEditing, setIsEditing] = useState(false);
+
+  // To modify the state of this component here and through the child component
   const edit = () => {
     setIsEditing(!isEditing);
   };

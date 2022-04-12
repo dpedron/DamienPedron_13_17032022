@@ -1,12 +1,12 @@
-import { Features } from '../components/home/Features';
-import { Hero } from '../components/home/Hero';
+import Features from '../components/home/Features';
+import Hero from '../components/home/Hero';
 
 /**
  * @description Homepage
  * @returns {JSX}
  */
 
-export function Home() {
+export default function Home() {
   return (
     <main>
       <Hero />

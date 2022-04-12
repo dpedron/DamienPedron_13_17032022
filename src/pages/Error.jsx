@@ -38,6 +38,11 @@ const StyledLink = styled(Link)`
   }
 `;
 
+/**
+ * @description Error page
+ * @returns {JSX}
+ */
+
 export default function Error() {
   return (
     <StyledMain>

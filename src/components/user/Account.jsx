@@ -1,12 +1,12 @@
-import { AccountItem } from './AccountItem';
-import { HelloUser } from './HelloUser';
+import AccountItem from './AccountItem';
+import HelloUser from './HelloUser';
 
 /**
  * @description User account informations
  * @returns {JSX}
  */
 
-export function Account() {
+export default function Account() {
   return (
     <>
       <HelloUser />

@@ -1,8 +1,4 @@
-/**
- * @description Save the state to the local storage
- * @returns {string}
- */
-
+// Save the state to the local storage
 export function saveToLocalStorage(state) {
   try {
     const stateToString = JSON.stringify(state);
@@ -12,11 +8,7 @@ export function saveToLocalStorage(state) {
   }
 }
 
-/**
- * @description Load the state to the local storage
- * @returns {object}
- */
-
+// Load the state to the local storage
 export function loadFromLocalStorage() {
   try {
     const persistantState = localStorage.getItem('persistantState');

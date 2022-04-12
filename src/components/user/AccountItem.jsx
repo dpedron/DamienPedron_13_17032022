@@ -72,7 +72,7 @@ const StyledButton = styled.button`
  * @returns {JSX}
  */
 
-export function AccountItem({ title, amount, description }) {
+export default function AccountItem({ title, amount, description }) {
   return (
     <StyledAccount>
       <StyledWrapper>

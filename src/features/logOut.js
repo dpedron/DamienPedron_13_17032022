@@ -1,21 +1,18 @@
-import { store } from '../utils/store';
+import { store } from '../utils/redux/store';
 import {
-  tokenAction,
-  authorizationAction,
-  userAction,
-  rememberAction,
-} from '../utils/actions';
-import { userInitialState } from '../utils/reducer';
+  token,
+  authorization,
+  remember,
+} from '../utils/redux/slices/authSlice';
+import { userData } from '../utils/redux/slices/userSlice';
+import { initialState } from '../utils/redux/slices/userSlice';
 
-/**
- * Logout, reset to initial state (expect remember if he is checked)
- */
-
+// Logout, reset to initial state
 export default function logOut() {
   const state = store.getState();
-  const remember = state.auth.remember;
-  store.dispatch(tokenAction(''));
-  store.dispatch(authorizationAction(false));
-  store.dispatch(userAction(userInitialState));
-  remember && store.dispatch(rememberAction());
+  const getRemember = state.auth.remember;
+  store.dispatch(token(''));
+  store.dispatch(authorization(false));
+  store.dispatch(userData(initialState));
+  getRemember && store.dispatch(remember()); // If 'remember me' checked do nothing, let him checked
 }

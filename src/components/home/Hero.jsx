@@ -50,7 +50,7 @@ const StyledText = styled.p`
  * @returns {JSX}
  */
 
-export function Hero() {
+export default function Hero() {
   return (
     <StyledHero>
       <StyledHeroContent>

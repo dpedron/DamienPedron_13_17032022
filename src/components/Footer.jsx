@@ -16,7 +16,7 @@ const StyledText = styled.p`
  * @returns {JSX}
  */
 
-export function Footer() {
+export default function Footer() {
   return (
     <StyledFooter>
       <StyledText>Copyright 2020 Argent Bank</StyledText>

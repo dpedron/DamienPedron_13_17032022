@@ -1,13 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { rememberAction } from '../../utils/actions';
-import { store } from '../../utils/store';
-import { useSelector } from 'react-redux';
-import { selectRemember } from '../../utils/selectors';
-import { tokenAction, authorizationAction } from '../../utils/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectRemember } from '../../utils/redux/selectors';
 import { apiBaseUrl } from '../../utils/apiBaseUrl';
 import { sessionExpiration } from '../../features/sessionExpiration';
 import { useState } from 'react';
+import {
+  token,
+  authorization,
+  remember,
+} from '../../utils/redux/slices/authSlice';
 
 const StyledSection = styled.section`
   box-sizing: border-box;
@@ -60,15 +62,17 @@ const StyledButton = styled(Link)`
 `;
 
 /**
- * @description Form to sign in
+ * @description Sign in form
  * @returns {JSX}
  */
 
-export function SignInContent() {
-  const remember = useSelector(selectRemember);
+export default function SignInContent() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const getRemember = useSelector(selectRemember);
   const [error, setError] = useState(false);
 
+  // On form submit
   async function authentication(e) {
     e.preventDefault();
     const email = document.getElementById('username').value;
@@ -85,15 +89,16 @@ export function SignInContent() {
         },
       });
       const data = await response.json();
-      const token = data.body.token;
-      store.dispatch(tokenAction(token));
-      store.dispatch(authorizationAction(true));
+      const getToken = data.body.token;
+      dispatch(token(getToken)); // Store user token
+      dispatch(authorization(true)); // Store the authorization
     } catch (err) {
       console.log(err);
-      return setError(true);
+      return setError(true); // Handle error
     }
-    sessionExpiration();
-    navigate('/user');
+    // No error
+    sessionExpiration(); // Set timer for session expiration
+    navigate('/user'); // Go to user page
   }
 
   return (
@@ -114,8 +119,8 @@ export function SignInContent() {
           <input
             type="checkbox"
             id="remember-me"
-            defaultChecked={remember}
-            onClick={() => store.dispatch(rememberAction())}
+            defaultChecked={getRemember} // Define by the state
+            onClick={() => dispatch(remember())}
           />
           <label htmlFor="remember-me">Remember me</label>
         </StyledInputRemember>

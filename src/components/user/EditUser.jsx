@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import editUserName from '../../features/editUserName';
+import editNameInDB from '../../features/editNameInDB';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 const StyledForm = styled.form`
   margin: auto;
@@ -10,6 +11,12 @@ const StyledInput = styled.input`
   width: 180px;
   height: 30px;
   margin: 5px;
+`;
+
+const StyledError = styled.p`
+  margin: 0;
+  color: #ff726f;
+  font-weight: bold;
 `;
 const StyledButton = styled.button`
   width: 110px;
@@ -30,18 +37,24 @@ const StyledButton = styled.button`
  */
 
 export default function EditUser({ edit, firstName, lastName }) {
-  const handleClick = (e) => {
-    const targetCancel = e.currentTarget.id === 'cancel-modification';
+  const [error, setError] = useState(false);
+
+  // Handle the edition of the username
+  const editUserName = (e) => {
+    e.preventDefault();
+    const saveButton = e.currentTarget.id === 'save-modification';
     const firstNameLength = document.getElementById('first-name-modification')
       .value.length;
     const lastNameLength = document.getElementById('last-name-modification')
       .value.length;
-    e.preventDefault();
-    if (!targetCancel && (firstNameLength < 3 || lastNameLength < 3)) {
-      return;
+    if (saveButton && (firstNameLength < 2 || lastNameLength < 2)) {
+      setError(true); // To handle error
+    } else {
+      editNameInDB(e); // Add modifications to database
+      edit(); // To hide edit form in parent component
     }
-    edit();
   };
+
   return (
     <StyledForm>
       <StyledInput
@@ -54,16 +67,13 @@ export default function EditUser({ edit, firstName, lastName }) {
         id="last-name-modification"
         placeholder={lastName}
       />
-      <StyledButton
-        id="save-modification"
-        onClick={(e) => {
-          editUserName(e);
-          handleClick(e);
-        }}
-      >
+      {error && (
+        <StyledError>Each field must contain at least 2 characters</StyledError>
+      )}
+      <StyledButton id="save-modification" onClick={(e) => editUserName(e)}>
         Save
       </StyledButton>
-      <StyledButton id="cancel-modification" onClick={(e) => handleClick(e)}>
+      <StyledButton id="cancel-modification" onClick={(e) => editUserName(e)}>
         Cancel
       </StyledButton>
     </StyledForm>

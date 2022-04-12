@@ -29,7 +29,12 @@ const StyledTitle = styled.h3`
  * @returns {JSX}
  */
 
-export function FeatureItem({ iconSrc, iconAlt, featureTitle, featureText }) {
+export default function FeatureItem({
+  iconSrc,
+  iconAlt,
+  featureTitle,
+  featureText,
+}) {
   return (
     <StyledFeatureItem>
       <StyledIcon src={iconSrc} alt={iconAlt} />

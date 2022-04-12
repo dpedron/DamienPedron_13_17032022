@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FeatureItem } from './FeatureItem';
+import FeatureItem from './FeatureItem';
 import chatIcon from '../../assets/img/icon-chat.png';
 import moneyIcon from '../../assets/img/icon-money.png';
 import securityIcon from '../../assets/img/icon-security.png';
@@ -17,7 +17,7 @@ const StyledFeatures = styled.section`
  * @returns {JSX}
  */
 
-export function Features() {
+export default function Features() {
   return (
     <StyledFeatures>
       <h2 className="sr-only">Features</h2>

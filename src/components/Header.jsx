@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import logo from '../assets/img/argentBankLogo.png';
 import { useSelector } from 'react-redux';
-import { selectFirstName, selectGetAuthorization } from '../utils/selectors';
+import {
+  selectFirstName,
+  selectGetAuthorization,
+} from '../utils/redux/selectors';
 import logOut from '../features/logOut';
 
 const StyledNav = styled.nav`
@@ -35,7 +38,7 @@ const StyledLink = styled(Link)`
  * @returns {JSX}
  */
 
-export function Header() {
+export default function Header() {
   const getAuthorization = useSelector(selectGetAuthorization);
   const firstName = useSelector(selectFirstName);
   return (
