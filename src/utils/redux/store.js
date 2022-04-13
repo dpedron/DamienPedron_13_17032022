@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { saveToLocalStorage, loadFromLocalStorage } from '../stateLocalStorage';
+import { saveToStorage, loadFromLocalStorage } from '../stateStorage';
 import { combineReducers } from 'redux';
 import auth from './slices/authSlice';
 import userData from './slices/userSlice';
@@ -18,5 +18,5 @@ export const store = createStore(
   reduxDevtools
 );
 
-// Save state to local storage when he is modified
-store.subscribe(() => saveToLocalStorage(store.getState()));
+// Save state to local or session storage when he is modified
+store.subscribe(() => saveToStorage(store.getState()));

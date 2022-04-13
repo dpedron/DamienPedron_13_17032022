@@ -30,11 +30,12 @@ const GlobalStyle = createGlobalStyle`
   }  
 `;
 
-/* When user leave the app, if 'remember me' not checked, clear the local storage */
-window.onbeforeunload = function () {
+window.onbeforeunload = () => {
   const state = store.getState();
   const getRemember = state.auth.remember;
-  !getRemember && localStorage.clear();
+  if (!getRemember) {
+    return 'Are you sure you want to leave? All provided data will be lost.';
+  }
 };
 
 ReactDOM.render(
