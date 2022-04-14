@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 const StyledForm = styled.form`
   margin: auto;
-  width: 400px;
+  max-width: 400px;
 `;
 const StyledInput = styled.input`
   width: 180px;
@@ -50,7 +50,7 @@ export default function EditUser({ edit, firstName, lastName }) {
     if (saveButton && (firstNameLength < 2 || lastNameLength < 2)) {
       setError(true); // To handle error
     } else {
-      editNameInDB(e); // Add modifications to database
+      editNameInDB(); // Add modifications to database
       edit(); // To hide edit form in parent component
     }
   };
@@ -70,12 +70,14 @@ export default function EditUser({ edit, firstName, lastName }) {
       {error && (
         <StyledError>Each field must contain at least 2 characters</StyledError>
       )}
-      <StyledButton id="save-modification" onClick={(e) => editUserName(e)}>
-        Save
-      </StyledButton>
-      <StyledButton id="cancel-modification" onClick={(e) => editUserName(e)}>
-        Cancel
-      </StyledButton>
+      <div>
+        <StyledButton id="save-modification" onClick={(e) => editUserName(e)}>
+          Save
+        </StyledButton>
+        <StyledButton id="cancel-modification" onClick={() => edit()}>
+          Cancel
+        </StyledButton>
+      </div>
     </StyledForm>
   );
 }

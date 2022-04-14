@@ -4,8 +4,7 @@ import { apiBaseUrl } from '../utils/apiBaseUrl';
 
 // Username edition, add modifications to database
 
-export default async function editNameInDB(e) {
-  e.preventDefault();
+export default async function editNameInDB() {
   const state = store.getState();
   const token = state.auth.token;
   const firstName = document.getElementById('first-name-modification').value;

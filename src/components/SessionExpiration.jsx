@@ -13,11 +13,22 @@ const StyledBackGround = styled.div`
 `;
 
 const StyledContainer = styled.div`
-  width: 650px;
-  height: 150px;
   border: 5px solid #00bc77;
   margin: 64px auto;
+  padding: 20px 0;
   background: white;
+  max-width: 400px;
+  @media (min-width: 920px) {
+    max-width: 600px;
+  }
+`;
+
+const StyledTitle = styled.h1`
+  font-size: 1.4rem;
+  margin: 10px 0 20px 0;
+  @media (min-width: 920px) {
+    font-size: 2rem;
+  }
 `;
 
 const StyledButtonContainer = styled.div`
@@ -28,12 +39,15 @@ const StyledButtonContainer = styled.div`
 const StyledButton = styled.button`
   width: 100px;
   padding: 8px;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   font-weight: bold;
   background-color: ${(props) => (props.cancel ? '#ff726f' : '#00bc77')};
   border: none;
   color: #fff;
   cursor: pointer;
+  @media (min-width: 920px) {
+    font-size: 1.1rem;
+  }
 `;
 
 /**
@@ -45,9 +59,9 @@ export default function SessionExpiration() {
   return (
     <StyledBackGround id="alert">
       <StyledContainer>
-        <h1>
+        <StyledTitle>
           Your session expires in 2 minutes :<br />
-        </h1>
+        </StyledTitle>
         <StyledButtonContainer>
           <StyledButton onClick={() => acceptDisconnection()}>Ok</StyledButton>
           <StyledButton onClick={() => cancelDisconnection()} cancel>

@@ -30,14 +30,6 @@ const GlobalStyle = createGlobalStyle`
   }  
 `;
 
-window.onbeforeunload = () => {
-  const state = store.getState();
-  const getRemember = state.auth.remember;
-  if (!getRemember) {
-    return 'Are you sure you want to leave? All provided data will be lost.';
-  }
-};
-
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>

@@ -11,11 +11,15 @@ export function saveToStorage(state) {
 }
 
 // Load the state to the local storage
-export function loadFromLocalStorage() {
+export function loadFromStorage() {
   try {
-    const reduxState = localStorage.getItem('reduxState');
-    if (reduxState === null) return undefined;
-    return JSON.parse(reduxState);
+    const reduxStateLocal = localStorage.getItem('reduxState');
+    const reduxStateSession = sessionStorage.getItem('reduxState');
+    if (reduxStateSession !== null) {
+      return JSON.parse(reduxStateSession); // If the state is in session storage, load him
+    }
+    if (reduxStateLocal === null) return undefined; // If the state is not in local storage, no state to load
+    return JSON.parse(reduxStateLocal); // If the state is in local storage, load him
   } catch (error) {
     console.log(error);
     return undefined;

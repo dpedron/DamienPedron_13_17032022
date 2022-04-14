@@ -59,7 +59,7 @@ export default function Header() {
         </div>
       ) : (
         <StyledLink to="/sign-in">
-          <i className="fa fa-user-circle"></i>
+          <i className="fa fa-user-circle" style={{ marginRight: '5px' }}></i>
           Sign In
         </StyledLink>
       )}
